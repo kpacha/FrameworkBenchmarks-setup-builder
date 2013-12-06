@@ -1,0 +1,55 @@
+##################################################
+# Auto-generated setup for the '{{testName}}' portion
+# of the FrameworkBenchmark project
+#
+# Generated with the FrameworkBenchmarks-setup-builder
+# (http://kpacha.github.io/FrameworkBenchmarks-setup-builder/)
+#
+# Generated at {{date}}
+# 
+# see https://github.com/TechEmpower/FrameworkBenchmarks#setup-files
+##################################################
+
+import subprocess
+import sys
+import setup_util
+import os
+
+##################################################
+# start(args, logfile, errfile)
+#
+# Starts the server
+# returns 0 if everything completes, 1 otherwise
+##################################################
+def start(args, logfile, errfile):
+{{#replacementCmd}}
+# setting the database url
+setup_util.replace_text("{{replacementCmd}}", "mysql:\/\/.*:3306", "mysql://" + args.database_host + ":3306")
+{{/replacementCmd}}
+  try:
+{{#start}}
+    {{#startCall}}
+    subprocess.{{startCall}}("{{startArgument}}", shell=True, {{#startCwd}} cwd="{{startCwd}}", {{/startCwd}} stderr=errfile, stdout=logfile)
+    {{/startCall}}
+{{/start}}
+    return 0
+  except subprocess.CalledProcessError:
+    return 1
+
+##################################################
+# stop(logfile, errfile)
+#
+# Stops the server
+# returns 0 if everything completes, 1 otherwise
+##################################################
+def stop(logfile, errfile):
+  if os.name == 'nt':
+    subprocess.check_call("wmic process where \"CommandLine LIKE '%spring%'\" call terminate", stderr=errfile, stdout=logfile)
+  else:
+    p = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE)
+    out, err = p.communicate()
+    for line in out.splitlines():
+      if 'spring.jar' in line:
+        pid = int(line.split(None, 2)[1])
+        os.kill(pid, 9)
+  return 0

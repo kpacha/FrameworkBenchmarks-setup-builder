@@ -1,49 +1,223 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Frameworkbenchmarks-setup-builder by kpacha</title>
-  </head>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+        <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="http://getbootstrap.com/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="http://getbootstrap.com/examples/theme/theme.css" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <title>Frameworkbenchmarks-setup-builder by kpacha</title>
+    </head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Frameworkbenchmarks setup builder</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#build">Build</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="https://github.com/kpacha/FrameworkBenchmarks-setup-builder/issues" target="_blank">Issues</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="https://github.com/kpacha/FrameworkBenchmarks-setup-builder/">Fork me!</a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
 
-        <header>
-          <h1>Frameworkbenchmarks-setup-builder</h1>
-          <h2>Simple setup.py builder for the FrameworkBenchmarks project</h2>
-        </header>
+        <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/kpacha/FrameworkBenchmarks-setup-builder/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/kpacha/FrameworkBenchmarks-setup-builder/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/kpacha/FrameworkBenchmarks-setup-builder" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+        <div class="container theme-showcase">
 
-        <hr>
+            <div class="jumbotron">
+                <h1>FrameworkBenchmarks setup builder</h1>
+                <p>Simple setup.py builder for the TechEmpower/FrameworkBenchmarks project.</p>
+                <p><a href="http://www.techempower.com/benchmarks/" target="_blank" class="btn btn-primary btn-lg" role="button">Learn more »</a></p>
+            </div>
 
-        <section id="main_content">
-          <h1>
-<a name="frameworkbenchmarks-setup-builder" class="anchor" href="#frameworkbenchmarks-setup-builder"><span class="octicon octicon-link"></span></a>FrameworkBenchmarks-setup-builder</h1>
+            <section id="about">
+                <div class="page-header">
+                    <h1>What? Why?</h1>
+                </div>
+                <h2>What's that project called FrameworkBenchmarks?</h2>
+                <p>
+                    What if building an application on one framework meant that at the very best your hardware is suitable for one tenth as much load as it would be had you chosen a different framework?
+                    The differences aren't always that extreme, but in some cases, they might be. Especially with several modern high-performance frameworks offering respectable developer efficiency, <em>it's worth knowing what you're getting into</em>.
+                </p>
+                <h2>Ok, so what's this project about? Why could this be useful?</h2>
+                <p>
+                    When you want to add a new test into the TechEmpower/FrameworkBenchmarks project, you are required to add a file called setup.py with the start and stop configuration. If you are not in python or if you aren't interested in reading another doc/man page, you could end with a bad setup file, as bad as my first attempt.
+                </p>
+                <p>
+                    Or maybe, you just don't want to manually update your setup.py file when the interface changes...
+                </p>
+                <p>
+                    Now you just need to fill this form and you'll get a customized setup.py. Also, you should download the setup.json too in order to uptade your setup.py for future changes. Have an existing auto-generated setup? Just drag your setup.json file into your browser and the form will be filled in with your previous values!
+                </p>
+            </section>
 
-<p>Simple setup.py builder for the FrameworkBenchmarks project</p>
-        </section>
+            <section id="build">
+                <div class="row">
+                    <div class="col-sm-12 page-header">
+                        <h1>Let's go!</h1>
+                    </div>
+                    <div class="col-md-3 hidden-xs">
+                        <div id="nav-sidebar" class="nav" style="" data-spy="affix" data-offset-top="1000">
+                            <ul class="nav">
+                                <li class=""><a href="#general">General</a></li>
+                                <li class=""><a href="#start">Start</a></li>
+                                <li class=""><a href="#create">Create</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <!--<div class="col-md-12">-->
+                        <form class="form-horizontal" role="form">
+                            <section id="general">
+                                <div class="page-header">
+                                    <h2 id="server">General Parameters</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">General</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <label for="testName" class="col-sm-2 control-label">Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="testName" placeholder="ninja-standalone">
+                                                        <span class="help-block">The name of the test portion.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="replacementCmd" class="col-sm-2 control-label">Configuration</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="replacementCmd" placeholder="ninja-standalone/src/main/resource/conf/application.conf">
+                                                        <span class="help-block">The path of the configuration file where the url for the db connection is set.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="processName" class="col-sm-2 control-label">Process</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="processName" placeholder="ninja-standalone">
+                                                        <span class="help-block">The name of the generated process. Required for the 'stop' step.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
-        <footer>
-          Frameworkbenchmarks-setup-builder is maintained by <a href="https://github.com/kpacha">kpacha</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+                            <section id="start">
+                                <div class="page-header">
+                                    <h2 id="server">Start Phase</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Start</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group clonedInput" id="startCmd1">
+                                                    <div class="col-sm-12">
+                                                        <h4 id="reference" name="reference" class="heading-reference">Command #1</h4>
+                                                    </div>
+                                                    <label for="startCall" class="col-sm-2 control-label">Call type</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" name="startCall">
+                                                            <option>check_call</option>
+                                                            <option>Popen</option>
+                                                        </select>
+                                                    </div>
+                                                    <label for="startArgument" class="col-sm-2 control-label">Argument</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="startArgument" placeholder="mvn clean compile war:war">
+                                                    </div>
+                                                    <label for="startCwd" class="col-sm-2 control-label">Folder</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="startCwd" placeholder="ninja-standalone">
+                                                    </div>
+                                                    <label for="startOs" class="col-sm-2 control-label">OS</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" name="startOs">
+                                                            <option>Platform independent</option>
+                                                            <option>Windows only</option>
+                                                            <option>Linux only</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-        
-      </div>
-    </div>
-  </body>
+                                                <div class="col-sm-12">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="btn btn-primary" id="btnAdd">Add Command</button> <button type="button" class="btn btn-danger" id="btnDel">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="create">
+                                <div class="page-header">
+                                    <h2 id="server">Create</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block run">Come on, give me my setup file!</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="output" class="hidden">
+                <div class="row">
+                    <div class="col-sm-12 page-header">
+                        <h2>Setup file</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <pre class="code setup"></pre>
+                    </div>
+                    <div class="col-sm-12 page-header">
+                        <h2>Setup config file</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <pre class="code manifest"></pre>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                Frameworkbenchmarks-setup-builder is maintained by <a href="https://github.com/kpacha">kpacha</a><br>
+            </footer>
+
+            <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+            <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+            <script src="http://getbootstrap.com/docs-assets/js/holder.js"></script>
+            <script src="http://mustache.github.io/extras/mustache.js"></script>
+            <script src="http://mustache.github.io/extras/highlight.js"></script>
+            <script src="javascripts/main.js"></script>
+        </div>
+    </body>
 </html>
