@@ -9,12 +9,11 @@
 # 
 # see https://github.com/TechEmpower/FrameworkBenchmarks#setup-files
 ##################################################
-
+ 
 import subprocess
 import sys
 import setup_util
-import os
-
+ 
 ##################################################
 # start(args, logfile, errfile)
 #
@@ -35,7 +34,7 @@ setup_util.replace_text("{{replacementCmd}}", "mysql:\/\/.*:3306", "mysql://" + 
     return 0
   except subprocess.CalledProcessError:
     return 1
-
+ 
 ##################################################
 # stop(logfile, errfile)
 #
@@ -43,13 +42,13 @@ setup_util.replace_text("{{replacementCmd}}", "mysql:\/\/.*:3306", "mysql://" + 
 # returns 0 if everything completes, 1 otherwise
 ##################################################
 def stop(logfile, errfile):
-  if os.name == 'nt':
-    subprocess.check_call("wmic process where \"CommandLine LIKE '%spring%'\" call terminate", stderr=errfile, stdout=logfile)
-  else:
-    p = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE)
+  try:
+    p = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE, stderr=errfile, stdout=logfile)
     out, err = p.communicate()
     for line in out.splitlines():
-      if 'spring.jar' in line:
+      if '{{processName}}' in line:
         pid = int(line.split(None, 2)[1])
         os.kill(pid, 9)
-  return 0
+    return 0
+  except subprocess.CalledProcessError:
+    return 1
