@@ -24,13 +24,13 @@ $(function() {
         e.preventDefault && e.preventDefault();
         e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 
-        $('#drag-drop').fadeIn('slow');
+        $('#myModal').modal('show')
     }
 
     function handleDragLeave(e) {
         tid = setTimeout(function () {
             e.stopPropagation();
-            $('#drag-drop').fadeOut('slow');
+            $('#myModal').modal('hide');
         }, 300);
     }
 
@@ -38,7 +38,7 @@ $(function() {
         e.stopPropagation();
         e.preventDefault && e.preventDefault();
 
-        $('#drag-drop').fadeOut('slow');
+        $('#myModal').modal('hide');
 
         var files = e.dataTransfer.files; // FileList object.
 
@@ -49,8 +49,9 @@ $(function() {
 
         var file = files[0];
 
-        // Only allow yaml uploads
-        if (file.name.split('.').pop().toLowerCase() !== 'yaml') {
+        // Only allow json uploads
+        if (file.name.toLowerCase() !== 'setup.json') {
+            alert('Not allowed! You shlould try with your setup.json file...')
             return false;
         }
 
@@ -59,7 +60,7 @@ $(function() {
         // Closure to capture the file information.
         reader.onload = (function (theFile) {
             return function (e) {
-                submitForm(e.target.result);
+                populateForm(jQuery.parseJSON(e.target.result));
             };
         })(file);
 
@@ -69,23 +70,50 @@ $(function() {
         return false;
     }
 
-    function submitForm(config) {
-        if (!config.length) {
+    function populateForm(config) {
+        if (!config) {
             return;
         }
 
-        var form = $(
-            '<form action="' + uploadConfigUrl + '" method="post">' +
-                '<input type="hidden" name="config" value="' + config + '" />' +
-            '</form>'
-        );
-        $('body').append(form);
-        $(form).submit();
+        var num = $('.clonedInput').length;
+        var totalStartCmdGroups = config.start.length;
+
+        if(num > totalStartCmdGroups){
+            removeLastStartCmdGroups(num - totalStartCmdGroups);
+        }else if(num < totalStartCmdGroups){
+            createNewStartCmdGroup(totalStartCmdGroups - num);
+        }
+
+        $(':input', '.form-horizontal').val('');
+        for(var input in config){
+            if(input!=='start'){
+                $("[name="+input+"]").val(config[input]);
+            }else{
+                var startCmds = config[input];
+                for(var current = 0; current < startCmds.length; current++){
+                    var startCmd = startCmds[current];
+                    for(var startCmdInput in startCmd){
+                        $("[name="+startCmdInput+"]", '#startCmd' + (current + 1)).val(startCmd[startCmdInput]);
+                    }
+                }
+            }
+        }
     }
+
+    function createNewStartCmdGroups(totalStartCmdGroups) {
+        var newNum = 0;
+        for(var current = 1; current <= totalStartCmdGroups; current++) {
+            newNum = createNewStartCmdGroup();
+        }
+        // Enable the "remove" button. This only shows once you have a duplicated section.
+        $('#btnDel').attr('disabled', false);
+        if (newNum == 10)
+            $('#btnAdd').attr('disabled', true).prop('value', "You've reached the limit"); // value here updates the text in the 'add' button when the limit is reached 
     
-    
-    $('#btnAdd').click(function () {
-        var num     = $('.clonedInput').length, // Checks to see how many "duplicatable" input fields we currently have
+    }
+
+    function createNewStartCmdGroup() {
+        var num = $('.clonedInput').length, // Checks to see how many "duplicatable" input fields we currently have
         newNum  = new Number(num + 1),      // The numeric ID of the new input field being added, increasing by 1 each time
         newElem = $('#startCmd' + num).clone().attr('id', 'startCmd' + newNum).fadeIn('slow'); // create the new element via clone(), and manipulate it's ID using newNum value
 
@@ -94,28 +122,34 @@ $(function() {
         // Insert the new element after the last "duplicatable" input field
         $('#startCmd' + num).after(newElem);
         $('#ID' + newNum + '_title').focus();
+        return newNum;
+    }
 
-        // Enable the "remove" button. This only shows once you have a duplicated section.
-        $('#btnDel').attr('disabled', false);
+    function removeLastStartCmdGroups(totalGroupsToRemove) {
+        var num = $('.clonedInput').length;
+        if(num - totalGroupsToRemove > 0){
+            $('#startCmd' + (num - totalGroupsToRemove + 1)).slideUp('fast', function () {
+                for(var current = 0; current < totalGroupsToRemove; current++){
+                    $('#startCmd' + (num - current)).remove();
+                }
+                // if only one element remains, disable the "remove" button
+                if (num - totalGroupsToRemove === 1)
+                    $('#btnDel').attr('disabled', true);
+                // enable the "add" button
+                $('#btnAdd').attr('disabled', false).prop('value', "add section");
+            });
+        }
+    }
 
-        if (newNum == 10)
-            $('#btnAdd').attr('disabled', true).prop('value', "You've reached the limit"); // value here updates the text in the 'add' button when the limit is reached 
+    $('#btnAdd').click(function () {
+        createNewStartCmdGroups(1);
     });
 
     $('#btnDel').click(function () {
         // Confirmation dialog box. Works on all desktop browsers and iPhone.
         if (confirm("Are you sure you wish to remove this section? This cannot be undone."))
         {
-            var num = $('.clonedInput').length;
-            // how many "duplicatable" input fields we currently have
-            $('#startCmd' + num).slideUp('slow', function () {
-                $(this).remove();
-                // if only one element remains, disable the "remove" button
-                if (num -1 === 1)
-                    $('#btnDel').attr('disabled', true);
-                // enable the "add" button
-                $('#btnAdd').attr('disabled', false).prop('value', "add section");
-            });
+            removeLastStartCmdGroups(1);
         }
         return false; // Removes the last section you added
     });
@@ -134,7 +168,7 @@ $(function() {
                 var key = formData[current].name;
                 if(key.substring(0,5) == 'start'){
                     startStep[key] = formData[current].value;
-                    if(key == 'startOs'){
+                    if(key == 'startCwd'){
                         data.start[data.start.length] = startStep;
                         startStep = new Object();
                     }
@@ -142,8 +176,8 @@ $(function() {
                     data[key] = formData[current].value;
                 }
             }
-            
-            setupContent = Mustache.to_html(setupTemplate, data).replace(/^\s*/mg, '');
+
+            setupContent = Mustache.to_html(setupTemplate, data);
             $('.setup').text(setupContent);
             $('.manifest').text(JSON.stringify(data));
             $('#output').removeClass("hidden").scrollTo(1);
