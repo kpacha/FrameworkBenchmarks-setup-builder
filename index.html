@@ -11,6 +11,12 @@
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <title>Frameworkbenchmarks-setup-builder by kpacha</title>
+        <style>
+            .github-btn {
+                border: 0;
+                overflow: hidden;
+            }
+        </style>
     </head>
 
     <body>
@@ -65,7 +71,7 @@
                     Or maybe, you just don't want to manually update your setup.py file when the interface changes...
                 </p>
                 <p>
-                    Now you just need to fill this form and you'll get a customized setup.py. Also, you should download the setup.json too in order to uptade your setup.py for future changes. Have an existing auto-generated setup? Just drag your setup.json file into your browser and the form will be filled in with your previous values!
+                    Now you just need to fill this form and you'll get a customized setup.py. Also, you should download the setup.json too in order to uptade your setup.py for future changes.
                 </p>
             </section>
 
@@ -74,17 +80,12 @@
                     <div class="col-sm-12 page-header">
                         <h1>Let's go!</h1>
                     </div>
-                    <div class="col-md-3 hidden-xs">
-                        <div id="nav-sidebar" class="nav" style="" data-spy="affix" data-offset-top="1000">
-                            <ul class="nav">
-                                <li class=""><a href="#general">General</a></li>
-                                <li class=""><a href="#start">Start</a></li>
-                                <li class=""><a href="#create">Create</a></li>
-                            </ul>
+                    <div class="col-sm-12">
+                        <div class="alert alert-info">
+                            <span class="glyphicon glyphicon-thumbs-up"></span> Have an existing auto-generated setup? Just drag your setup.json file into your browser and the form will be filled in with your previous values!
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <!--<div class="col-md-12">-->
+                    <div class="col-md-12">
                         <form class="form-horizontal" role="form">
                             <section id="general">
                                 <div class="page-header">
@@ -207,17 +208,16 @@
             </section>
 
             <footer>
-                Frameworkbenchmarks-setup-builder is maintained by <a href="https://github.com/kpacha">kpacha</a><br>
+                <div class="row">
+                    <div class="col-sm-9">
+                        Frameworkbenchmarks-setup-builder is maintained by <a href="https://github.com/kpacha">kpacha</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=kpacha&amp;repo=FrameworkBenchmarks-setup-builder&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub"></iframe>
+                        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=kpacha&amp;repo=FrameworkBenchmarks-setup-builder&amp;type=fork&amp;count=true" width="102" height="20" title="Fork on GitHub"></iframe>
+                    </div>
+                </div>
             </footer>
-
-            <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-            <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-            <script src="http://getbootstrap.com/docs-assets/js/holder.js"></script>
-            <script src="http://mustache.github.io/extras/mustache.js"></script>
-            <script src="http://mustache.github.io/extras/highlight.js"></script>
-            <script src="javascripts/Blob.js"></script>
-            <script src="javascripts/FileSaver.js"></script>
-            <script src="javascripts/main.js"></script>
         </div>
 
         <div class="modal fade" id="myModal">
@@ -226,8 +226,17 @@
                     <div class="modal-body">
                         <div id="drag-drop" class="alert alert-info"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+        <script src="http://getbootstrap.com/docs-assets/js/holder.js"></script>
+        <script src="http://mustache.github.io/extras/mustache.js"></script>
+        <script src="http://mustache.github.io/extras/highlight.js"></script>
+        <script src="javascripts/Blob.js"></script>
+        <script src="javascripts/FileSaver.js"></script>
+        <script src="javascripts/main.js"></script>
     </body>
 </html>
