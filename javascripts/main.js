@@ -141,9 +141,15 @@ $(function() {
         }
     }
 
+    function downloadDocument(name, content) {
+        saveAs(new Blob([content] , {type: "text/plain;charset=UTF-8"}), name);
+    }
+
     $('#btnAdd').click(function () {
         createNewStartCmdGroups(1);
     });
+    // Enable the "add" button
+    $('#btnAdd').attr('disabled', false);
 
     $('#btnDel').click(function () {
         // Confirmation dialog box. Works on all desktop browsers and iPhone.
@@ -153,10 +159,15 @@ $(function() {
         }
         return false; // Removes the last section you added
     });
-    // Enable the "add" button
-    $('#btnAdd').attr('disabled', false);
     // Disable the "remove" button
     $('#btnDel').attr('disabled', true);
+
+    $('#btnDownloadSetup').click(function(){
+        downloadDocument('setup.py', $('.setup').text());
+    });
+    $('#btnDownloadConfig').click(function(){
+        downloadDocument('setup.json', $('.manifest').text());
+    });
 
     return $('.run').click(function() {
         $.get('template/setup.mustache', function(setupTemplate) {
