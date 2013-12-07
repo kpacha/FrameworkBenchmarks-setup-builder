@@ -170,7 +170,11 @@ $(function() {
     });
 
     return $('.run').click(function() {
-        $.get('template/setup.mustache', function(setupTemplate) {
+        var archetype = $('[name=testArchetype]').val();
+        if(archetype){
+            archetype = '_' + archetype;
+        }
+        $.get('template/setup' + archetype + '.mustache', function(setupTemplate) {
             var setupContent, formData, data = new Object(), startStep = new Object();
             formData = $('.form-horizontal').serializeArray();
             data.start=new Array();
