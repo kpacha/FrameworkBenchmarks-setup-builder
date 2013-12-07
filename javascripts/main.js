@@ -85,6 +85,7 @@ $(function() {
         }
 
         $(':input', '.form-horizontal').val('');
+        $('#output').addClass("hidden")
         for(var input in config){
             if(input!=='start'){
                 $("[name="+input+"]").val(config[input]);
